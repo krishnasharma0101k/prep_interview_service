@@ -15,11 +15,11 @@ const InterviewState =  Annotation.Root({
 
      question: Annotation(),
 
-     aswer: Annotation(),
+     answer: Annotation(),
 
      difficulty: Annotation(),
 
-     feednack: Annotation(),
+    feedback: Annotation(),
 
      report: Annotation(),
 
