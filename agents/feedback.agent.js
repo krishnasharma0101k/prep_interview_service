@@ -1,25 +1,26 @@
-import llm from "../config/llm.js"
-import feedbackPrompt from "../prompt/feedbackPrompt.js"
 
+import llm from "../config/llm.js";
+import feedbackPrompt from "../prompt/feedbackPrompt.js";
 
 export const feedbackAgent = async (data) => {
-    try {
-      
-        const  prompt = feedbackPrompt(data)
+  let response;
 
-        const responce = await llm.invoke(prompt)
+  try {
+    const prompt = feedbackPrompt(data);
+    response = await llm.invoke(prompt);
 
-        const cleaned = responce.content
-        .replace(/```json/g, "")
-        .replace(/```/g, "")
-        .trim()
-        return JSON.parse(cleaned)
+    const cleaned = response.content
+      .replace(/```json/gi, "")
+      .replace(/```/g, "")
+      .trim();
 
-    } catch (error) {
-        console.log("feedback Agent Parse Error");
-        console.log(responce.content);
+    const feedback = JSON.parse(cleaned);
+ 
 
-
-        throw new Error("Failed to generate feedback")
-    }
-}
+    return feedback;
+  } catch (error) {
+    console.error("Feedback agent error:", error.message);
+    console.error("AI response:", response?.content);
+    throw error;
+  }
+};
