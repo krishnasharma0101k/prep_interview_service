@@ -226,7 +226,7 @@ export const getAllInterview = async (req, res) => {
         : 0;
 
     const stats = {
-      totalInterview: interviews.length,
+      totalInterviews: interviews.length,
       totalQuestions,
       completed: completed.length,
       averageScore,
